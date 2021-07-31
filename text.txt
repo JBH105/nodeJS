@@ -1,0 +1,52 @@
+Following are the updates for Node JS as on 28th July, 2021 :
+
+List of Completed Tasks :
+1) i have learned @MongoDB Create DataBase [Done]
+2) i have learned @MongoDB Create Collection [Done]
+3) i have learned @Nodejs Core modules[Done]
+Please check with the latest updates.
+
+Thanks,
+
+
+
+
+Following are the updates for Node JS as on 29th July, 2021
+
+List of Completed Tasks :
+1) i have learned @Routing with express JS [Done]
+2) i have learned @Middleware function [Done]
+3) i have learned @Open file with Routers [Done]
+4) i have learned @Template Engine(ejs) [Done]
+5) i have learned @Make common Header [Done]
+Please check with the latest updates.
+
+Thanks,
+
+
+30/7
+
+Following are the updates for Node JS as on 30th July, 2021
+
+List of Completed Tasks :
+1) i have learned @Get data from MongoDB [Done]
+2) i have learned @Make post API [Done]
+3) i have learned @Delete post API  [Done]
+4) i have learned @Update API
+
+Please check with the latest updates.
+
+Tasks,
+
+Get data from MongoDB
+Build A Restful Api With Node.js Express & MongoDB 
+ make form and query string
+ make get API
+ make post API | mongodb | express js
+ Delete post API 
+ Update API
+
+ 31/7
+ Update API
+ Search APIs
+ JWT authentication 
