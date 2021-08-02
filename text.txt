@@ -46,7 +46,7 @@ Build A Restful Api With Node.js Express & MongoDB
  Delete post API 
  Update API
 
- 31/7
+ 01/8
  Update API
  Search APIs
- JWT authentication 
+ JWT (Bcrypt)authentication

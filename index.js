@@ -1,9 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const Note = require("./models/note.model")
+const Note = require("./models/note.model");
 const dbConfig = require('./config/db.config');
 const mongoose = require('mongoose');
-const jsonParser = bodyParser.json;
+//const jsonParser = bodyParser.json;
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const jwtkey = "jwt1234";
 // create express app
 const app = express();
 
@@ -26,32 +29,31 @@ mongoose.connect(dbConfig.url, {
 });
 //get data
 app.get('/user', function (req, res) {
-    Note.find().select('name').then((data) => {
+    Note.find().then((data) => {
         res.status(201).json(data);
         console.warn(data);
     })
 })
 //post API
-app.post("/user", (req, res) => {
-    const note = new Note({
-        title: req.body.title || "Untitled Note",
-        content: req.body.content,
-        name: req.body.name,
-        number: req.body.number
-    });
+// app.post("/user", (req, res) => {
+//     const note = new Note({
+//         title: req.body.title || "Untitled Note",
+//         content: req.body.content,
+//         name: req.body.name,
+//         number: req.body.number
+//     });
 
-    // Save database
-    note.save()
-        .then(data => {
-            console.warn(data);
-        }).catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while creating the Note."
-            });
-        });
-})
+//     // Save database
+//     note.save()
+//         .then(data => {
+//             console.warn(data);
+//         }).catch(err => {
+//             res.status(500).send({
+//                 message: err.message || "Some error occurred while creating the Note."
+//             });
+//         });
+// })
 //delete API
-
 app.delete('/user/:id', function (req, res) {
     Note.deleteOne({ _id: req.params.id }).then((result) => {
         res.json(result);
@@ -74,16 +76,48 @@ app.put('/user/:id', function (req, res) {
         })
 })
 //Search API
-app.get('/search/:name',function(req,res){
-   var regex = new RegExp(req.params.name);
-   Note.find({name: regex})
-   .then((result)=>{
-       res.json(result)
-   })
+app.get('/search/:name', function (req, res) {
+    var regex = new RegExp(req.params.name);
+    Note.find({ name: regex })
+        .then((result) => {
+            res.json(result)
+        })
 })
+
+//JWT(Bcrypt password) and stor data in mongoDb
+app.post('/user', function (req, res) {
+    const hase = 10;
+    const hasepassword = 's0/\/\P4$$w0rD';
+    //const someOtherPlaintextPassword = 'not_bacon';
+
+    bcrypt.genSalt(hase, function (err, data) {
+        bcrypt.hash(hasepassword, data, function (err, hash) {
+            // Store hash in your password DB.
+            const note = new Note({
+                title: req.body.title,
+                content: req.body.content,
+                name: req.body.name,
+                number: req.body.number,
+                password: hasepassword
+            })
+            note.save().then((result) => {
+                //JWT Token
+                jwt.sign({result},jwtkey,(err,token)=>{
+                    console.log(token)
+                    res.json({message:result,token:token});
+                })
+                // res.status(201).json(result);
+                // res.warn(result);
+            })
+        });
+    });
+    // console.warn(req.body, hasepassword);
+    // res.end("Hello");
+})
+
 // define a simple route
 app.get('/', (req, res) => {
-    res.json({ "message": "Welcome to EasyNotes application. Take notes quickly. Organize and keep track of all your notes." });
+    res.json({ "message":"Welcome to EasyNotes application. Take notes quickly. Organize and keep track of all your notes." });
 });
 
 // listen for requests
