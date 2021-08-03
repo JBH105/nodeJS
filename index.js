@@ -29,7 +29,7 @@ mongoose.connect(dbConfig.url, {
 });
 //get data
 app.get('/user', function (req, res) {
-    Note.find().then((data) => {
+    Note.find().limit(2).then((data) => {
         res.status(201).json(data);
         console.warn(data);
     })
@@ -76,12 +76,13 @@ app.put('/user/:id', function (req, res) {
         })
 })
 //Search API
-app.get('/search/:name', function (req, res) {
+app.get('/find/:name', function (req, res) {
     var regex = new RegExp(req.params.name);
     Note.find({ name: regex })
         .then((result) => {
             res.json(result)
-        })
+        }) 
+
 })
 
 //JWT(Bcrypt password) and stor data in mongoDb
@@ -115,13 +116,20 @@ app.post('/user', function (req, res) {
     // res.end("Hello");
 })
 
+app.post('/user/login',function(req,res){
+    Note.findOne({email:req.body.email}).then((result)=>{
+        const decript = bcrypt.createDecipher(hase,hasepassword);
+        console.warn(decript);
+    })
+})
+
 // define a simple route
 app.get('/', (req, res) => {
     res.json({ "message":"Welcome to EasyNotes application. Take notes quickly. Organize and keep track of all your notes." });
 });
 
 // listen for requests
-const post = 8000;
+const post = 9090;
 app.listen(post, () => {
     console.log("Server is listening on port :" + post);
 });

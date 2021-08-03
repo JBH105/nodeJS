@@ -36,7 +36,7 @@ List of Completed Tasks :
 
 Please check with the latest updates.
 
-Tasks,
+Thanks,
 
 Get data from MongoDB
 Build A Restful Api With Node.js Express & MongoDB 
@@ -46,7 +46,22 @@ Build A Restful Api With Node.js Express & MongoDB
  Delete post API 
  Update API
 
+Hi,
+
+Following are the updates for Node JS as on 02th Aug, 2021
+
+List of Completed Tasks :
+ i have learned @Update API [Done]
+ i have learned @Search API [Done]
+ i have learned @JWT (Bcrypt) authentication [Done]
+ i have learned @JWT Token[Done]
+
+Please check with the latest updates.
+
+Thanks,
+
  01/8
  Update API
  Search APIs
  JWT (Bcrypt)authentication
+ JWT Token

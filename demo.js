@@ -1,9 +1,10 @@
 var http = require('http');
 const express = require('express');
 const app = express();
+var fs = require('fs')
 const bodyParser = require('body-parser');
 //var encoder = bodyParser.urlencoded();
-app.use(bodyParser.urlencoded({extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }))
 const dbConfig = require('./config/db.config');
 const router = express.Router();
 
@@ -16,34 +17,35 @@ app.use(chekUrl);
 
 //Template Engine(ejs)
 app.set('view engine', 'ejs');
-
-app.get("/profile/:name",function(req,res){    
-    console.warn(req.params.name);      
-    data = {email:'test@gmail.com',address:'Bhavnager',Skills:["nodeJS","Android","Java","HTML","Css"]}
-    res.render('profile',{name:req.params.name,data:data})
+app.get("/profile/:name", function (req, res) {
+    console.warn(req.params.name);
+    data = { email: 'test@gmail.com', address: 'Bhavnager', Skills: ["nodeJS", "Android", "Java", "HTML", "Css"] }
+    res.render('profile', { name: req.params.name, data: data })
 })
 
 // Make common header
-app.post("/login",function(req,res){   
+app.post("/login", function (req, res) {
     console.warn(req.body);
     res.render('home')
 })
-app.get("/login",function(req,res){  
-    console.log(req.query);  
-    res.render('login') 
+app.get("/login", function (req, res) {
+    console.log(req.query);
+    fs.appendFileSync('data.txt',JSON.stringify(req.query))  
+    res.render('login')
 })
-app.get("/home",function(req,res){    
+app.get("/home", function (req, res) {
+    console.log(req.query);
     res.render('home')
 })
 
 app.get('/login', function (req, res) {
     //res.send('Hello');
-    res.sendFile(__dirname+"/login.html");
+    res.sendFile(__dirname + "/login.html");
 })
 
 app.get('/home', function (req, res) {
     //res.send('Hello');
-    res.sendFile(__dirname+"/home.html");
+    res.sendFile(__dirname + "/home.html");
 })
 app.get('/', function (req, res) {
     const data = [

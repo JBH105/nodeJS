@@ -1,12 +1,24 @@
-<!-- <ul>
-    <li><a href="home">Home</a></li>
-    <li><a href="login">Login</a></li>
-    <li><a href="profile/Jaydeep">Profile</a></li>
-</ul> -->
-<h2>Login Page</h2>
+<!-- <h2>Login Page</h2>
 <form method="POST" action="">
     <input type="text" name="Email"></br></br>
     <input type="password" name="Password"></br></br>
     <button type="submit">Login</button>
-</form>
+</form> -->
 <%-include('common/nev.ejs');-%>
+
+<html>
+  <head>
+	<title>Example Login Form</title>
+  </head>
+  <body>
+	<form action="/login" method="post">
+  	<!-- user input-->
+  	Username:<br>
+  	<input type="text" name="username" placeholder="Username" required><br><br>
+  	Password:<br>
+  	<input type="password" name="password" placeholder="Password" required><br><br>
+  	<!-- submit button -->
+  	<input type="submit" value="login">
+	</form>
+  </body>
+</html>
