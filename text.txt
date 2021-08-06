@@ -65,3 +65,29 @@ Thanks,
  Search APIs
  JWT (Bcrypt)authentication
  JWT Token
+
+Hi,PM
+
+Following are the updates for Node JS as on 04th Aug, 2021
+
+List of Completed Tasks 
+Send Data from NodeJS to MongoDB using HTML.[Done]
+Send Data from NodeJS to MongoDB using Template Engine.[Done]
+Please check with the latest updates and let us know your thoughts for the same.
+
+Thanks
+JBH
+
+04/08
+send data from node js to mongodb using html
+send data from node js to mongodb using templaet Engine 
+
+Hi,PM
+
+Following are the updates for Node JS as on 05th Aug, 2021
+
+List of Completed Tasks 
+i have learned MongoDB method { Find,FindOne,Find(query),Find().sort(),sort,limit() }[Done]
+
+Thanks
+JBH

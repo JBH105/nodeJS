@@ -29,30 +29,13 @@ mongoose.connect(dbConfig.url, {
 });
 //get data
 app.get('/user', function (req, res) {
-    Note.find().limit(2).then((data) => {
+    var sort = { name: 1 }
+    Note.find().sort(sort).then((data) => {
         res.status(201).json(data);
         console.warn(data);
     })
 })
-//post API
-// app.post("/user", (req, res) => {
-//     const note = new Note({
-//         title: req.body.title || "Untitled Note",
-//         content: req.body.content,
-//         name: req.body.name,
-//         number: req.body.number
-//     });
 
-//     // Save database
-//     note.save()
-//         .then(data => {
-//             console.warn(data);
-//         }).catch(err => {
-//             res.status(500).send({
-//                 message: err.message || "Some error occurred while creating the Note."
-//             });
-//         });
-// })
 //delete API
 app.delete('/user/:id', function (req, res) {
     Note.deleteOne({ _id: req.params.id }).then((result) => {
@@ -81,55 +64,43 @@ app.get('/find/:name', function (req, res) {
     Note.find({ name: regex })
         .then((result) => {
             res.json(result)
-        }) 
+        })
 
 })
 
 //JWT(Bcrypt password) and stor data in mongoDb
 app.post('/user', function (req, res) {
-    const hase = 10;
-    const hasepassword = 's0/\/\P4$$w0rD';
-    //const someOtherPlaintextPassword = 'not_bacon';
 
-    bcrypt.genSalt(hase, function (err, data) {
-        bcrypt.hash(hasepassword, data, function (err, hash) {
-            // Store hash in your password DB.
-            const note = new Note({
-                title: req.body.title,
-                content: req.body.content,
-                name: req.body.name,
-                number: req.body.number,
-                password: hasepassword
-            })
-            note.save().then((result) => {
-                //JWT Token
-                jwt.sign({result},jwtkey,(err,token)=>{
-                    console.log(token)
-                    res.json({message:result,token:token});
-                })
-                // res.status(201).json(result);
-                // res.warn(result);
-            })
-        });
-    });
-    // console.warn(req.body, hasepassword);
-    // res.end("Hello");
+    const note = new Note({
+        title: req.body.title,
+        content: req.body.content,
+        name: req.body.name,
+        number: req.body.number,
+        password: bcrypt.hashSync(req.body.password, 10)
+    })
+    note.save().then((result) => {
+        //JWT Token
+        jwt.sign({ result }, jwtkey, (err, token) => {
+            console.log(token)
+            res.json({ message: result, token: token });
+        })
+    })
 })
 
-app.post('/user/login',function(req,res){
-    Note.findOne({email:req.body.email}).then((result)=>{
-        const decript = bcrypt.createDecipher(hase,hasepassword);
+app.post('/user/login', function (req, res) {
+    Note.findOne({ email: req.body.email }).then((result) => {
+        const decript = bcrypt.createDecipher(hase, hasepassword);
         console.warn(decript);
     })
 })
 
 // define a simple route
 app.get('/', (req, res) => {
-    res.json({ "message":"Welcome to EasyNotes application. Take notes quickly. Organize and keep track of all your notes." });
+    res.json({ "message": "Welcome to EasyNotes application. Take notes quickly. Organize and keep track of all your notes." });
 });
 
 // listen for requests
-const post = 9090;
+const post = 5050;
 app.listen(post, () => {
     console.log("Server is listening on port :" + post);
 });
