@@ -56,7 +56,7 @@ app.get('/user', (req, res) => {
     })
 })
 
-var port = 6060;
+var port = 5050;
 app.listen(port, function (req, res) {
     console.log(port);
 });
